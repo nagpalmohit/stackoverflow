@@ -12,12 +12,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-        factory(\App\User::class,5)
+        /*Notes: */
+        //we can create $user->question()->create() this will automatically put user_id of the current $user inside questions ka user_id
+
+        factory(\App\User::class, 5)
             ->create()
-            ->each(function($user){
-                for($i=1;$i<=rand(5,10);$i++) {
-                    $user->questions()->create(factory(Questions::class)->make() - toArray());
+            //callback function for each user object
+            ->each(function ($user){
+                for ($i = 0 ; $i < rand(5,10);$i++){
+                    //Converting to array as create([]) takes array inside to make collection deta hai which then will be convert to toArray
+                    $user->questions()->create(factory(\App\Question::class)->make()->toArray());
                 }
-        });
+            });
     }
 }
