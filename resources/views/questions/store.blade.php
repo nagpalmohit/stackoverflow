@@ -15,7 +15,7 @@ class Questions extends BaseModel
     }
 
     public function getUrlAttribute(){
-        return "questions/{$this->slugaa}";
+        return "questions/{$this->slug}";
     }
 
     public function getCreatedDateAttribute(){
