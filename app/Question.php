@@ -68,6 +68,12 @@ class Question extends BaseModel
         $this->best_answer_id = $answer->id;
         $this->save();
     }
+    public function unselectBestAnswer(Answer $answer){
+        $this->best_answer_id = null;
+        $this->save();
+
+    }
+
 
     public function getFavoritesCountAttribute()
     {

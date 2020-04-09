@@ -42,17 +42,28 @@
 
                             <div class="mt-2">
                                 @can('markAsBest', $answer)
-                                    <form action="{{ route('answers.bestAnswer', $answer->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn {{ $answer->best_answer_status }}">
-                                            <i class="fa fa-check fa-2x "></i>
-                                        </button>
-                                    </form>
+                                    @if($answer->is_best == null)
+                                        <form action="{{ route('answers.bestAnswer', $answer->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn {{ $answer->best_answer_status }}">
+                                                <i class="fa fa-check fa-2x "></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{route('answers.unselectBestAnswer',$answer->id)}}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn {{ $answer->best_answer_status }}">
+                                                <i class="fa fa-check fa-2x "></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 @else
                                     @if($answer->is_best)
                                         <i class="fa fa-check fa-2x text-success"></i>
 
                                     @endif
+
+
                                 @endcan
 
                             </div>
@@ -61,7 +72,7 @@
                         <div class="ml-5 flex-fill">
                             {!! $answer->body !!}
 
-                            {{--                        to display user info of owner--}}
+                            {{--to display user info of owner--}}
                             <div class="d-flex justify-content-between">
                                 <div  class="d-flex flex-row">
                                     @can('update', $answer)
